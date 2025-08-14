@@ -20,7 +20,7 @@ interface FormTabelProps {
 
 const FormTabel: React.FC<FormTabelProps> = ({ orangList, onChangeRow, onAddRow, onRemoveRow }) => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       {/* Header + tombol tambah */}
       <div className="flex gap-2 items-center">
         <h2 className="font-bold ">Daftar Orang</h2>
@@ -30,7 +30,7 @@ const FormTabel: React.FC<FormTabelProps> = ({ orangList, onChangeRow, onAddRow,
       </div>
 
       {/* Form horizontal */}
-      <div className="flex flex-row flex-wrap gap-5 pb-2">
+      <div className="flex flex-row overflow-x-auto scroll-smooth custom-scrollbar gap-5 pb-2">
         {orangList.map((orang, index) => (
           <div key={index} className="p-4 border rounded-md bg-white flex flex-col gap-3 w-64 min-w-[16rem]">
             <TextForm label="Nama (dalam tabel)" placeholder="Ketik nama" required value={orang.nama} onChange={(e) => onChangeRow(index, "nama", e.target.value)} />
