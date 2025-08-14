@@ -9,59 +9,71 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Label } from "../ui/label";
 
-const frameworks = [
+const statusDerajat = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "p1",
+    label: "P1 Tidak ditemukan kelainan medis",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "p2",
+    label: "P2 Ditemukan kelainan medis yang tidak serius",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "p3",
+    label: "P3 Ditemukan kelainan medis, risiko kesehatan rendah",
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: "p4",
+    label: "P4 Ditemukan kelainan medis bermakna yang dapat menjadi serius, risiko kesehatan sedang",
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: "p5",
+    label: "P5 Ditemukan kelaianan medis yang serius, risiko kesehatan tinggi",
+  },
+  {
+    value: "p6",
+    label: "P6 Ditemukan kelainan medis yang menyebabkan keterbatasan fisik maupun psikis untuk melakukan pekerjaan sesuai jabatan/posisinya",
+  },
+  {
+    value: "p7",
+    label: "P7 Tidak dapat bekerja untuk melakukan pekerjaan sesuai jabatan/posisinya dan/atau posisi apapun , dalam perawatan di rumah sakit, atau dalam status izin sakit",
   },
 ];
 
-export function Dropdown() {
+interface DropdownProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function Dropdown({ value, onChange }: DropdownProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <Label>Status Derajat Kesehatan (dalam tabel)</Label>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-          {value ? frameworks.find((framework) => framework.value === value)?.label : "Pilih status derajat"}
+        <Button variant="outline" role="combobox" aria-expanded={open} className="justify-between overflow-hidden">
+          {value ? statusDerajat.find((statusDerajat) => statusDerajat.value === value)?.label : "Pilih status derajat"}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[200px] p-0 overflow-hidden">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Cari status" className="h-9 " />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>Status tidak ditemukan.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {statusDerajat.map((statusDerajat) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={statusDerajat.value}
+                  value={statusDerajat.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    onChange(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
-                  {framework.label}
-                  <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                  {statusDerajat.label}
+                  <Check className={cn("ml-auto text-green-500", value === statusDerajat.value ? "opacity-100" : "opacity-0")} />
                 </CommandItem>
               ))}
             </CommandGroup>
