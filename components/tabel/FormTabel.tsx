@@ -3,6 +3,8 @@ import TextForm from "@/components/form/TextForm";
 
 import { Dropdown } from "@/components/form/Dropdown";
 import { Button } from "@/components/ui/button";
+import { AlertDialogDemo } from "../modal/DeleteAlertModal";
+import { useState } from "react";
 
 interface Person {
   nama: string;
@@ -19,6 +21,7 @@ interface FormTabelProps {
 }
 
 const FormTabel: React.FC<FormTabelProps> = ({ orangList, onChangeRow, onAddRow, onRemoveRow }) => {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div className="flex flex-col gap-3 ">
       {/* Header + tombol tambah */}
@@ -39,9 +42,18 @@ const FormTabel: React.FC<FormTabelProps> = ({ orangList, onChangeRow, onAddRow,
 
             <TextForm label="Status Kelaikan Kerja (dalam tabel)" placeholder="Ketik status kelaikan kerja" required value={orang.statusKelaikan} onChange={(e) => onChangeRow(index, "statusKelaikan", e.target.value)} />
 
-            <Button type="button" variant="destructive" size="sm" className="cursor-pointer" onClick={() => onRemoveRow(index)}>
+            <Button type="button" variant="destructive" size="sm" className="cursor-pointer" onClick={() => setOpenModal(true)}>
               Hapus
             </Button>
+
+            <AlertDialogDemo
+              open={openModal}
+              onOpenChange={setOpenModal}
+              onConfirm={() => {
+                onRemoveRow(index);
+                setOpenModal(false);
+              }}
+            />
           </div>
         ))}
       </div>

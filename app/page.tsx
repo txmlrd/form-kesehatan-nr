@@ -2,15 +2,23 @@
 import TextForm from "@/components/form/TextForm";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useState } from "react";
 import FormTabel from "@/components/tabel/FormTabel";
 import { CalendarForm } from "@/components/form/DateForm";
 import { useFormStore } from "@/store/formStore";
 import DebugZustand from "@/store/DebugZustand";
+import { useRouter } from "next/navigation";
+import { ConfirmAlertDialog } from "../components/modal/ConfirmAlertModal";
+import { useState } from "react";
 
 export default function Home() {
-  const { formData, setFormData, orangList, addOrang, updateOrang, removeOrang } = useFormStore();
-
+  const [openModal, setOpenModal] = useState(false);
+  const router = useRouter();
+  const { formData, setFormData, orangList, addOrang, updateOrang, removeOrang, saveAllData } = useFormStore();
+  const handleSubmit = () => {
+    saveAllData();
+    console.log("Data final:", useFormStore.getState().allData);
+    router.push("/pdf");
+  };
   return (
     <div className="flex items-center justify-center h-screen w-full bg-gray-100 p-10">
       <div className="flex flex-col items-center mb-10 w-full p-10">
@@ -28,7 +36,18 @@ export default function Home() {
           <CalendarForm date={formData.tanggalSurat} onChange={(date) => setFormData({ ...formData, tanggalSurat: date })} />
         </div>
 
-        <Button className="mt-4">Submit</Button>
+        <Button onClick={() => setOpenModal(true)} className="mt-4">
+          Submit
+        </Button>
+
+        <ConfirmAlertDialog
+          open={openModal}
+          onOpenChange={setOpenModal}
+          onConfirm={() => {
+            handleSubmit();
+            setOpenModal(false);
+          }}
+        />
         <DebugZustand />
       </div>
     </div>

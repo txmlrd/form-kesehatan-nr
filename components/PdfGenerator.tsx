@@ -4,7 +4,7 @@ import logoBase64 from "@/public/logo-base64";
 import ttdBase64 from "@/public/ttd-base64";
 
 const styles = StyleSheet.create({
-  page: { padding: 30, fontSize: 12, fontFamily: "Times-Roman" },
+  page: { padding: 50, fontSize: 12, fontFamily: "Times-Roman" },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -21,44 +21,64 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
   },
-  table: { display: "table", width: "auto", borderStyle: "solid", borderWidth: 1, borderRightWidth: 0, borderBottomWidth: 0 },
-  tableRow: { flexDirection: "row" },
-tableNumberCol: {
-  width: 30,
-  borderStyle: "solid",
-  borderWidth: 1,
-  borderColor: "#000",
-  justifyContent: "center",
-  alignItems: "center",
-},
-
-tableNumberHeader: {
-  fontSize: 10, // kecil untuk header "No"
-  fontWeight: "bold",
-},
-
-tableNumberCell: {
-  fontSize: 9, // lebih kecil untuk angka
-  textAlign: "center",
-},
-
-tableCol: {
-  flex: 1,
-  borderStyle: "solid",
-  borderWidth: 1,
-  borderColor: "#000",
-  padding: 4,
-},
-
-tableCell: {
-  fontSize: 11,
-},
-  dataSection: {
-    margin: 20,
+  table: {
+    display: "table",
+    width: "auto",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
+    borderColor: "#000",
   },
+  tableRow: {
+    flexDirection: "row",
+  },
+  tableNumberCol: {
+    width: 30,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+    borderColor: "#000",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tableCol: {
+    flex: 1,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+    borderColor: "#000",
+    padding: 4,
+  },
+  tableCell: {
+    fontSize: 10,
+    textAlign: "center",
+    fontWeight: "normal",
+  },
+    tableCellHeader: {
+    fontSize: 10,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  tableCellNama: {
+    fontSize: 10,
+    textAlign: "left",
+    fontWeight: "normal",
+  },
+  tableNumberHeader: {
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  tableNumberCell: {
+    fontSize: 9,
+    textAlign: "center",
+  },
+  dataSection: { margin: 20 },
 });
 
-export function PdfGenerator({ data }: any) {
+export function PdfGenerator({ data }: string | any) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -103,13 +123,13 @@ export function PdfGenerator({ data }: any) {
                 <Text style={styles.tableNumberHeader}>No</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Nama</Text>
+                <Text style={styles.tableCellHeader}>Nama</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Status Derajat</Text>
+                <Text style={styles.tableCellHeader}>Status Derajat Kesehatan *</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Status Kelaikan</Text>
+                <Text style={styles.tableCellHeader}>Status Kelaikan Kerja</Text>
               </View>
             </View>
 
@@ -120,7 +140,7 @@ export function PdfGenerator({ data }: any) {
                   <Text style={styles.tableNumberCell}>{i + 1}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{orang.nama}</Text>
+                  <Text style={styles.tableCellNama}>{orang.nama}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{orang.statusDerajat}</Text>

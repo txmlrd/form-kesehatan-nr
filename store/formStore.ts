@@ -13,13 +13,27 @@ interface FormData {
 interface FormState {
   formData: FormData;
   orangList: Orang[];
+  allData: FormData & { orangList: Orang[] };
   setFormData: (data: Partial<FormData>) => void;
   addOrang: () => void;
   updateOrang: (index: number, field: keyof Orang, value: string) => void;
   removeOrang: (index: number) => void;
+  saveAllData: () => void;
 }
 
 export const useFormStore = create<FormState>((set) => ({
+  allData: {
+    tamu: "",
+    kegiatan: "",
+    tanggalSurat: "",
+    orangList: [
+      {
+        nama: "",
+        statusKelaikan: "",
+        statusDerajat: "",
+      },
+    ],
+  },
   formData: {
     tamu: "",
     kegiatan: "",
@@ -34,7 +48,7 @@ export const useFormStore = create<FormState>((set) => ({
 
   addOrang: () =>
     set((state) => ({
-      orangList: [...state.orangList, { nama: "" }],
+      orangList: [...state.orangList, { nama: "", statusKelaikan: "", statusDerajat: "" }],
     })),
 
   updateOrang: (index, field, value) =>
@@ -47,5 +61,13 @@ export const useFormStore = create<FormState>((set) => ({
   removeOrang: (index) =>
     set((state) => ({
       orangList: state.orangList.filter((_, i) => i !== index),
+    })),
+
+  saveAllData: () =>
+    set((state) => ({
+      allData: {
+        ...state.formData,
+        orangList: state.orangList,
+      },
     })),
 }));

@@ -11,31 +11,31 @@ import { Label } from "../ui/label";
 
 const statusDerajat = [
   {
-    value: "p1",
+    value: "P1",
     label: "P1 Tidak ditemukan kelainan medis",
   },
   {
-    value: "p2",
+    value: "P2",
     label: "P2 Ditemukan kelainan medis yang tidak serius",
   },
   {
-    value: "p3",
+    value: "P3",
     label: "P3 Ditemukan kelainan medis, risiko kesehatan rendah",
   },
   {
-    value: "p4",
+    value: "P4",
     label: "P4 Ditemukan kelainan medis bermakna yang dapat menjadi serius, risiko kesehatan sedang",
   },
   {
-    value: "p5",
+    value: "P5",
     label: "P5 Ditemukan kelaianan medis yang serius, risiko kesehatan tinggi",
   },
   {
-    value: "p6",
+    value: "P6",
     label: "P6 Ditemukan kelainan medis yang menyebabkan keterbatasan fisik maupun psikis untuk melakukan pekerjaan sesuai jabatan/posisinya",
   },
   {
-    value: "p7",
+    value: "P7",
     label: "P7 Tidak dapat bekerja untuk melakukan pekerjaan sesuai jabatan/posisinya dan/atau posisi apapun , dalam perawatan di rumah sakit, atau dalam status izin sakit",
   },
 ];
